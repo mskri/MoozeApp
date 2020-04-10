@@ -1,0 +1,20 @@
+PODS:
+  - AMCoreAudio (3.3.1)
+  - Magnet (2.3.1)
+
+DEPENDENCIES:
+  - AMCoreAudio (~> 3.3)
+  - Magnet
+
+SPEC REPOS:
+  trunk:
+    - AMCoreAudio
+    - Magnet
+
+SPEC CHECKSUMS:
+  AMCoreAudio: 6bf97d548d02ebb75b56c1cbf6b1f87bcfdeb748
+  Magnet: f8dac2ffc845ffe68b2dd21c68a801f866f4a098
+
+PODFILE CHECKSUM: 33b872d5fc833b2257478816fdd50c288c6bccec
+
+COCOAPODS: 1.8.4
