@@ -14,6 +14,7 @@
 		EBD65C8824408A4700068113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBD65C8724408A4700068113 /* Assets.xcassets */; };
 		EBD65C8B24408A4700068113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBD65C8924408A4700068113 /* Main.storyboard */; };
 		EBD65C9424408F3300068113 /* StatusBarItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65C9324408F3300068113 /* StatusBarItemManager.swift */; };
+		EBF2C52624411DA3004A9765 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF2C52524411DA3004A9765 /* State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		EBD65C8C24408A4700068113 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBD65C8D24408A4700068113 /* Mooze.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mooze.entitlements; sourceTree = "<group>"; };
 		EBD65C9324408F3300068113 /* StatusBarItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarItemManager.swift; sourceTree = "<group>"; };
+		EBF2C52524411DA3004A9765 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		F5139B782F3EA03635EBAE3E /* Pods-Mooze.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mooze.release.xcconfig"; path = "Target Support Files/Pods-Mooze/Pods-Mooze.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,13 +62,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		EB6332B82440A0B6007AA853 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		EBD65C7724408A4400068113 = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				EBD65C8324408A4400068113 /* AppDelegate.swift */,
-				EB6332B82440A0B6007AA853 /* New Group */,
 				EBD65C8524408A4400068113 /* PopoverViewController.swift */,
 				EBD65C8724408A4700068113 /* Assets.xcassets */,
 				EBD65C8924408A4700068113 /* Main.storyboard */,
@@ -97,6 +91,7 @@
 				EBD65C8D24408A4700068113 /* Mooze.entitlements */,
 				EBD65C9324408F3300068113 /* StatusBarItemManager.swift */,
 				EB6332B92440B19D007AA853 /* AudioHelper.swift */,
+				EBF2C52524411DA3004A9765 /* State.swift */,
 			);
 			path = Mooze;
 			sourceTree = "<group>";
@@ -217,6 +212,7 @@
 			files = (
 				EBD65C8624408A4400068113 /* PopoverViewController.swift in Sources */,
 				EBD65C8424408A4400068113 /* AppDelegate.swift in Sources */,
+				EBF2C52624411DA3004A9765 /* State.swift in Sources */,
 				EB6332BA2440B19D007AA853 /* AudioHelper.swift in Sources */,
 				EBD65C9424408F3300068113 /* StatusBarItemManager.swift in Sources */,
 			);

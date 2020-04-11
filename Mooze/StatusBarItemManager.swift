@@ -4,84 +4,100 @@ import AMCoreAudio
 import Magnet
 import Carbon
 
+// TODO: when app quits, unmute?
+
 class StatusBarItemManager: NSObject {
     var statusBarItem: NSStatusItem?
     var popover: NSPopover?
     var popoverVC: PopoverViewController?
-    
-    // TODO: this should be determined by checking if there are
-    // input devices with microphone open when app starts
-    var micsMuted = false
+    var microphoneMutedStatusObserver: NSKeyValueObservation?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-     
-        initStatusBarItem()
-        initPopover()
+        
+        let isEveryInputDeviceMuted = AudioHelper.isEveryInputDeviceMuted()
+        print("On app startup all input devices are muted: \(isEveryInputDeviceMuted)")
+        State.shared.isMicrophoneMuted = isEveryInputDeviceMuted
+        
+        microphoneMutedStatusObserver = State.shared.observe(\.isMicrophoneMuted, options: .new) { _, change in
+            let isMuted = change.newValue ?? false
+            print("observed value for microphoneMuted: \(isMuted)")
+            self.toggleMicrophoneMuteState(isMuted: isMuted)
+        }
+        
         initNotificationCenterListeners()
+        initStatusBarItem(isEveryInputDeviceMuted)
+        initPopover()
         initGlobalHotKeys()
     }
     
-    fileprivate func initNotificationCenterListeners() {
+    deinit {
+        microphoneMutedStatusObserver?.invalidate()
+    }
+    
+    func initNotificationCenterListeners() {
         NotificationCenter.defaultCenter.subscribe(self, eventType: AudioHardwareEvent.self, dispatchQueue: DispatchQueue.main)
         NotificationCenter.defaultCenter.subscribe(self, eventType: AudioDeviceEvent.self, dispatchQueue: DispatchQueue.main)
         NotificationCenter.defaultCenter.subscribe(self, eventType: AudioStreamEvent.self, dispatchQueue: DispatchQueue.main)
-               
     }
     
-    fileprivate func initStatusBarItem() {
+    func initStatusBarItem(_ mutedIcon: Bool) {
         statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = statusBarItem?.button {
-            button.image = NSImage(named: "microphone-off")
+            button.image = NSImage(named: mutedIcon ? "microphone-off" : "microphone-on")
             button.target = self
             button.action = #selector(showPopoverVC)
         }
     }
     
-    
-    @objc func toggleMute() {
-        if micsMuted {
-            print("unmute")
-            AudioHelper.unmuteAllInputDevices()
-            toggleStatusBarIcon(muted: false)
-            micsMuted = false
-        } else {
-            print("mute")
-            AudioHelper.muteAllInputDevices()
-            toggleStatusBarIcon(muted: true)
-            micsMuted = true
-        }
-    }
-    
-    // TODO: icon should be changed based on the events + checking that all devices are muted
-    fileprivate func toggleStatusBarIcon(muted: Bool) {
-        if let button = statusBarItem?.button {
-            if muted {
-                button.image = NSImage(named: "microphone-off")
-            } else {
-                button.image = NSImage(named: "microphone-on")
-            }
-        }
-    }
-    
-    fileprivate func initPopover() {
+    func initPopover() {
         popover = NSPopover()
         popover?.behavior = .transient
     }
     
-    fileprivate func initGlobalHotKeys() {
+    // TODO: allow setting preferred key combo
+    func initGlobalHotKeys() {
         // after registering the key, another key with same identifie has to be unregistered first before7
         // the new one will become active
         // HotKeyCenter.shared.unregisterAll()
         let carbonModifiers = cmdKey + controlKey + optionKey
-        print(carbonModifiers)
         if let keyCombo = KeyCombo(keyCode: kVK_ANSI_M, carbonModifiers: carbonModifiers) {
             let hotKey = HotKey(identifier: "CommandOptionControlM", keyCombo: keyCombo, target: self, action: #selector(toggleMute))
             hotKey.register() // or HotKeyCenter.shared.register(with: hotKey)
           }
     }
     
-    @objc fileprivate func showPopoverVC() {
+    func toggleMicrophoneMuteState(isMuted: Bool) {
+        if isMuted {
+            setStatusBarIcon(status: .muted)
+            AudioHelper.muteMicrophones()
+        } else {
+            setStatusBarIcon(status: .notmuted)
+            AudioHelper.unmuteMicrophones()
+        }
+    }
+    
+    enum StatusBarIcon {
+        case muted
+        case notmuted
+    }
+    
+    func setStatusBarIcon(status: StatusBarIcon) {
+        if let button = statusBarItem?.button {
+            switch status {
+            case .muted:
+                button.image = NSImage(named: "microphone-off")
+            case .notmuted:
+                button.image = NSImage(named: "microphone-on")
+            }
+        }
+    }
+    
+    @objc func toggleMute() {
+        State.shared.toggleMicrophoneMute()
+    }
+    
+    @objc func showPopoverVC() {
         guard let popover = popover, let button = statusBarItem?.button else { return }
         
         if popoverVC == nil {
@@ -99,6 +115,48 @@ class StatusBarItemManager: NSObject {
 extension StatusBarItemManager: EventSubscriber {
     func eventReceiver(_ event: Event) {
         print(event)
+    
+        switch event {
+        case let event as AudioDeviceEvent:
+            switch event {
+            case let .listDidChange(audioDevice):
+                print("listDidChange \(audioDevice)")
+            case .volumeDidChange(let audioDevice, let channel, let direction):
+                if direction == .playback {
+                    return
+                }
+                // TODO: should unmute the devices? If user changes input volume in preferences this is triggered
+                // muteDidChange == input volume was set to 0
+                let volume = audioDevice.volume(channel: channel, direction: .recording) ?? 1
+                
+                if volume > 0 && State.shared.isMicrophoneMuted {
+                    // Resets mic muted state in app when user changes input volume in system preferences
+                    State.shared.isMicrophoneMuted = false
+                } else if volume == 0 {
+                    // Updates icon and sets app state correctly when user sets input volume to 0 in system preferences
+                    State.shared.isMicrophoneMuted = true
+                }
+//            case .muteDidChange(let audioDevice, let channel, let direction):
+//                if direction == .playback {
+//                    return
+//                }
+            default:
+                break
+            }
+        case let event as AudioHardwareEvent:
+            switch event {
+            case .deviceListChanged:
+                print("deviceListChanged")
+                // Mute all devices when new one is added and the mute status is true
+                if !State.shared.isMicrophoneMuted {
+                    print("mute all inputs because of new device")
+                    State.shared.isMicrophoneMuted = true
+                }
+            default:
+                break
+            }
+        default:
+            break
+        }
     }
 }
-

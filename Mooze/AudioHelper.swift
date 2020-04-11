@@ -1,23 +1,29 @@
-import Foundation
 import AMCoreAudio
 
 public class AudioHelper {
-    static func muteAllInputDevices() {
+    static func isEveryInputDeviceMuted() -> Bool {
+        var devicesMuteStatuses: [Bool] = []
+        
         for device in AudioDevice.allInputDevices() {
-            let channel = UInt32(0)
-            let direction = Direction.recording
-            if device.setMute(true, channel: channel, direction: direction) == false {
-                print("Unable to update mute state for channel \(channel) and direction \(direction)")
+            let isMuted = device.isMuted(channel: UInt32(0), direction: .recording) ?? false
+            devicesMuteStatuses.append(isMuted)
+        }
+
+        return !devicesMuteStatuses.contains(false)
+    }
+    
+    static func muteMicrophones() {
+        for device in AudioDevice.allInputDevices() {
+            if device.setMute(true, channel: UInt32(0), direction: .recording) == false {
+                print("ERROR: Unable to mute \(device.id)")
             }
         }
     }
 
-    static func unmuteAllInputDevices() {
+    static func unmuteMicrophones() {
         for device in AudioDevice.allInputDevices() {
-            let channel = UInt32(0)
-            let direction = Direction.recording
-            if device.setMute(false, channel: channel, direction: direction) == false {
-                print("Unable to update mute state for channel \(channel) and direction \(direction)")
+            if device.setMute(false, channel: UInt32(0), direction: .recording) == false {
+                print("ERROR: Unable to unmute \(device.id)")
             }
         }
     }

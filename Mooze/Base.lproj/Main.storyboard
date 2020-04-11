@@ -34,29 +34,21 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddO-pE-5EJ">
-                                <rect key="frame" x="14" y="13" width="96" height="32"/>
+                                <rect key="frame" x="70" y="13" width="96" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Mute mic" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z0y-o8-Bft">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="muteMicrophone:" target="0Aw-cF-srx" id="HIN-VD-0Be"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t6J-3V-fJl">
-                                <rect key="frame" x="110" y="13" width="113" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Unmute mic" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aso-G5-jSa">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="unmuteMicrophone:" target="0Aw-cF-srx" id="Pnr-d4-CeB"/>
+                                    <action selector="toggleMute:" target="0Aw-cF-srx" id="8Px-rj-pPg"/>
                                 </connections>
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="toggleMuteButton" destination="ddO-pE-5EJ" id="VNw-Zc-CMR"/>
+                    </connections>
                 </viewController>
                 <customObject id="Fhm-oH-fb9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
