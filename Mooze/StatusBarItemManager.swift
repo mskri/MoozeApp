@@ -23,7 +23,6 @@ class StatusBarItemManager: NSObject {
        }
 
     let statusBarButton: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    var popover: NSPopover?
     var microphoneMutedStatusObserver: NSKeyValueObservation?
     
     override func awakeFromNib() {
@@ -41,7 +40,6 @@ class StatusBarItemManager: NSObject {
         
         initNotificationCenterListeners()
         initStatusBarButton(isEveryInputDeviceMuted)
-        initPopover()
         initGlobalHotKeys()
     }
     
@@ -62,11 +60,6 @@ class StatusBarItemManager: NSObject {
             button.image = NSImage(named: mutedIcon ? "microphone-off" : "microphone-on")
             button.target = self
         }
-    }
-    
-    func initPopover() {
-        popover = NSPopover()
-        popover?.behavior = .transient
     }
     
     // TODO: allow setting preferred key combo
