@@ -88,7 +88,7 @@ class StatusBarItemManager: NSObject {
             setStatusBarIcon(status: .muted)
             AudioHelper.muteMicrophones()
         } else {
-            toggleMuteMenuItem.title = "Unmute microphone"
+            toggleMuteMenuItem.title = "Mute microphone"
             setStatusBarIcon(status: .notmuted)
             AudioHelper.unmuteMicrophones()
         }
