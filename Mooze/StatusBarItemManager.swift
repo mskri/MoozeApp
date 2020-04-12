@@ -14,6 +14,14 @@ class StatusBarItemManager: NSObject {
         toggleMicrophoneMute()
     }
     
+    @IBAction func showPreferences(_ sender: Any) {
+           let storyboard = NSStoryboard(name: "Main", bundle: nil)
+           guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? PreferencesViewController else { return }
+           
+           let window = NSWindow(contentViewController: vc)
+           window.makeKeyAndOrderFront(nil)
+       }
+    
     var statusBarItem: NSStatusItem?
     var popover: NSPopover?
     var microphoneMutedStatusObserver: NSKeyValueObservation?
@@ -104,14 +112,6 @@ class StatusBarItemManager: NSObject {
     
     @objc func toggleMicrophoneMute() {
         State.shared.toggleMicrophoneMute()
-    }
-    
-    @IBAction func showPreferences(_ sender: Any) {
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? ViewController else { return }
-        
-        let window = NSWindow(contentViewController: vc)
-        window.makeKeyAndOrderFront(nil)
     }
 }
 

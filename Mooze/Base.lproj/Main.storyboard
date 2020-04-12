@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -27,7 +28,11 @@
                                                 <action selector="toggleMenuBarItemAction:" target="ynm-gq-wk4" id="Lsg-3Y-sJi"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="eXG-To-FUn"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="eXG-To-FUn">
+                                            <connections>
+                                                <action selector="showPreferences:" target="ynm-gq-wk4" id="AHQ-YI-tyG"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Jcp-Dm-Arz"/>
                                         <menuItem title="Quit Mooze" keyEquivalent="q" id="i9f-eV-gMF">
                                             <connections>
@@ -59,6 +64,19 @@
                 </customObject>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+        <!--Preferences View Controller-->
+        <scene sceneID="dMX-pc-6XZ">
+            <objects>
+                <viewController storyboardIdentifier="preferencesID" id="1qO-Ro-aZ5" customClass="PreferencesViewController" customModule="Mooze" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="p5y-Wz-3dF">
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="130"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="u6n-lF-NiU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="149"/>
         </scene>
     </scenes>
 </document>

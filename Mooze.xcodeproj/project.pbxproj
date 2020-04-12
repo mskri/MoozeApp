@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		82C010CC0A3D1E1333ECBFAA /* Pods_Mooze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE1564684851D64637A7282 /* Pods_Mooze.framework */; };
 		EB6332BA2440B19D007AA853 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6332B92440B19D007AA853 /* AudioHelper.swift */; };
+		EB8D4822244394CE000DFB93 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8D4821244394CE000DFB93 /* PreferencesViewController.swift */; };
 		EBD65C8424408A4400068113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65C8324408A4400068113 /* AppDelegate.swift */; };
 		EBD65C8824408A4700068113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBD65C8724408A4700068113 /* Assets.xcassets */; };
 		EBD65C8B24408A4700068113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBD65C8924408A4700068113 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 		55DF65BC035E8F7DFF3F968B /* Pods-Mooze.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mooze.debug.xcconfig"; path = "Target Support Files/Pods-Mooze/Pods-Mooze.debug.xcconfig"; sourceTree = "<group>"; };
 		6CE1564684851D64637A7282 /* Pods_Mooze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mooze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6332B92440B19D007AA853 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
+		EB8D4821244394CE000DFB93 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		EBD65C8024408A4400068113 /* Mooze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mooze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBD65C8324408A4400068113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBD65C8724408A4700068113 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				EBD65C9324408F3300068113 /* StatusBarItemManager.swift */,
 				EB6332B92440B19D007AA853 /* AudioHelper.swift */,
 				EBF2C52524411DA3004A9765 /* State.swift */,
+				EB8D4821244394CE000DFB93 /* PreferencesViewController.swift */,
 			);
 			path = Mooze;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB8D4822244394CE000DFB93 /* PreferencesViewController.swift in Sources */,
 				EBD65C8424408A4400068113 /* AppDelegate.swift in Sources */,
 				EBF2C52624411DA3004A9765 /* State.swift in Sources */,
 				EB6332BA2440B19D007AA853 /* AudioHelper.swift in Sources */,
