@@ -7,4 +7,5 @@ target 'Mooze' do
   # Pods for Mooze
   pod 'AMCoreAudio', '~> 3.3'
   pod 'Magnet'
+  pod 'SwiftLint'
 end

@@ -1,20 +1,24 @@
 PODS:
   - AMCoreAudio (3.3.1)
   - Magnet (2.3.1)
+  - SwiftLint (0.39.2)
 
 DEPENDENCIES:
   - AMCoreAudio (~> 3.3)
   - Magnet
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
     - AMCoreAudio
     - Magnet
+    - SwiftLint
 
 SPEC CHECKSUMS:
   AMCoreAudio: 6bf97d548d02ebb75b56c1cbf6b1f87bcfdeb748
   Magnet: f8dac2ffc845ffe68b2dd21c68a801f866f4a098
+  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 33b872d5fc833b2257478816fdd50c288c6bccec
+PODFILE CHECKSUM: 68086d1efdacbdcea03c2fd36be84c387a41c4f7
 
 COCOAPODS: 1.8.4
