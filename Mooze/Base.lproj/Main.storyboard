@@ -28,7 +28,8 @@
                                                 <action selector="toggleMenuBarItemAction:" target="ynm-gq-wk4" id="Lsg-3Y-sJi"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="eXG-To-FUn">
+                                        <menuItem title="Preferences…" id="eXG-To-FUn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showPreferences:" target="ynm-gq-wk4" id="AHQ-YI-tyG"/>
                                             </connections>
