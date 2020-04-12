@@ -21,8 +21,8 @@ class StatusBarItemManager: NSObject {
            let window = NSWindow(contentViewController: vc)
            window.makeKeyAndOrderFront(nil)
        }
-    
-    var statusBarItem: NSStatusItem?
+
+    let statusBarButton: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     var popover: NSPopover?
     var microphoneMutedStatusObserver: NSKeyValueObservation?
     
@@ -40,7 +40,7 @@ class StatusBarItemManager: NSObject {
         }
         
         initNotificationCenterListeners()
-        initStatusBarItem(isEveryInputDeviceMuted)
+        initStatusBarButton(isEveryInputDeviceMuted)
         initPopover()
         initGlobalHotKeys()
     }
@@ -55,13 +55,12 @@ class StatusBarItemManager: NSObject {
         NotificationCenter.defaultCenter.subscribe(self, eventType: AudioStreamEvent.self, dispatchQueue: DispatchQueue.main)
     }
     
-    func initStatusBarItem(_ mutedIcon: Bool) {
-        statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        if let button = statusBarItem?.button {
+    func initStatusBarButton(_ mutedIcon: Bool) {
+        statusBarButton.menu = menu
+
+        if let button = statusBarButton.button {
             button.image = NSImage(named: mutedIcon ? "microphone-off" : "microphone-on")
             button.target = self
-//            button.action = #selector(showPopoverVC)
-            statusBarItem?.menu = menu
         }
     }
     
@@ -100,7 +99,7 @@ class StatusBarItemManager: NSObject {
     }
     
     func setStatusBarIcon(status: StatusBarIcon) {
-        if let button = statusBarItem?.button {
+        if let button = statusBarButton.button {
             switch status {
             case .muted:
                 button.image = NSImage(named: "microphone-off")
