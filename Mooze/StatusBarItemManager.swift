@@ -54,11 +54,13 @@ class StatusBarItemManager: NSObject {
     }
     
     func initStatusBarButton(_ mutedIcon: Bool) {
-        statusBarButton.menu = menu
+//        statusBarButton.menu = menu
 
         if let button = statusBarButton.button {
             button.image = NSImage(named: mutedIcon ? "microphone-off" : "microphone-on")
             button.target = self
+            button.action = #selector(self.statusBarIconClicked(sender:))
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
     }
     
@@ -104,6 +106,37 @@ class StatusBarItemManager: NSObject {
     
     @objc func toggleMicrophoneMute() {
         State.shared.toggleMicrophoneMute()
+    }
+    
+    // TODO: make this functionality option. Give user choice to either open menu also on left click or toggle mute
+    // with menu on right click
+    let toggleMicrophoneOnStatusBarButtonLeftClick = true
+    @objc func statusBarIconClicked(sender: NSStatusItem) {
+        let event = NSApp.currentEvent!
+        
+        if event.type == NSEvent.EventType.rightMouseUp {
+            if toggleMicrophoneOnStatusBarButtonLeftClick {
+                openMenu()
+            } else {
+                toggleMicrophoneMute()
+            }
+        } else {
+            if !toggleMicrophoneOnStatusBarButtonLeftClick {
+                openMenu()
+            } else {
+                toggleMicrophoneMute()
+            }
+        }
+    }
+    
+    @objc func openMenu() {
+        if let button = statusBarButton.button {
+            // TODO: why doesn't detecting left/right clicks on NSStatusItem work if `.menu = menu` is set?
+            // For now set the menu to nil after showing it so we get right clicks too
+            statusBarButton.menu = menu
+            button.performClick(nil)
+            statusBarButton.menu = nil
+        }
     }
 }
 
