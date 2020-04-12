@@ -14,7 +14,7 @@ Tested on macOS Catalina 10.15.3
 
 Toggle microphone on/off with global shortcut using `⌃⌥⌘m` _(control + option + command + m)_.
 
-Microphone can also be toggled by left clicking status bar icon. Menu open on right click.
+Microphone can also be toggled by left clicking status bar icon. Menu opens on right click.
 
 ## License
 
