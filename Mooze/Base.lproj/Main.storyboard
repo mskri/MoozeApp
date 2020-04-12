@@ -15,13 +15,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Mooze" systemMenu="apple" id="oZp-T5-v0C">
                                     <items>
-                                        <menuItem title="About Mooze" id="uCw-fG-2VT">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="flH-F5-MEX"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="MYN-sN-CMW"/>
                                         <menuItem title="Mute microphone" keyEquivalent="m" id="LUb-2t-Xom">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES" command="YES"/>
                                             <connections>
