@@ -7,9 +7,15 @@ import Carbon
 // TODO: when app quits, unmute?
 
 class StatusBarItemManager: NSObject {
+    @IBOutlet weak var menu: NSMenu?
+    @IBOutlet weak var toggleMuteMenuItem: NSMenuItem!
+
+    @IBAction func toggleMenuBarItemAction(_ sender: Any) {
+        toggleMicrophoneMute()
+    }
+    
     var statusBarItem: NSStatusItem?
     var popover: NSPopover?
-    var popoverVC: PopoverViewController?
     var microphoneMutedStatusObserver: NSKeyValueObservation?
     
     override func awakeFromNib() {
@@ -22,7 +28,7 @@ class StatusBarItemManager: NSObject {
         microphoneMutedStatusObserver = State.shared.observe(\.isMicrophoneMuted, options: .new) { _, change in
             let isMuted = change.newValue ?? false
             print("observed value for microphoneMuted: \(isMuted)")
-            self.toggleMicrophoneMuteState(isMuted: isMuted)
+            self.setMicrophoneMuteState(isMuted: isMuted)
         }
         
         initNotificationCenterListeners()
@@ -46,7 +52,8 @@ class StatusBarItemManager: NSObject {
         if let button = statusBarItem?.button {
             button.image = NSImage(named: mutedIcon ? "microphone-off" : "microphone-on")
             button.target = self
-            button.action = #selector(showPopoverVC)
+//            button.action = #selector(showPopoverVC)
+            statusBarItem?.menu = menu
         }
     }
     
@@ -62,16 +69,18 @@ class StatusBarItemManager: NSObject {
         // HotKeyCenter.shared.unregisterAll()
         let carbonModifiers = cmdKey + controlKey + optionKey
         if let keyCombo = KeyCombo(keyCode: kVK_ANSI_M, carbonModifiers: carbonModifiers) {
-            let hotKey = HotKey(identifier: "CommandOptionControlM", keyCombo: keyCombo, target: self, action: #selector(toggleMute))
+            let hotKey = HotKey(identifier: "CommandOptionControlM", keyCombo: keyCombo, target: self, action: #selector(toggleMicrophoneMute))
             hotKey.register() // or HotKeyCenter.shared.register(with: hotKey)
           }
     }
     
-    func toggleMicrophoneMuteState(isMuted: Bool) {
+    func setMicrophoneMuteState(isMuted: Bool) {
         if isMuted {
+            toggleMuteMenuItem.title = "Unmute microphone"
             setStatusBarIcon(status: .muted)
             AudioHelper.muteMicrophones()
         } else {
+            toggleMuteMenuItem.title = "Unmute microphone"
             setStatusBarIcon(status: .notmuted)
             AudioHelper.unmuteMicrophones()
         }
@@ -93,21 +102,16 @@ class StatusBarItemManager: NSObject {
         }
     }
     
-    @objc func toggleMute() {
+    @objc func toggleMicrophoneMute() {
         State.shared.toggleMicrophoneMute()
     }
     
-    @objc func showPopoverVC() {
-        guard let popover = popover, let button = statusBarItem?.button else { return }
+    @IBAction func showPreferences(_ sender: Any) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? ViewController else { return }
         
-        if popoverVC == nil {
-            let storyboard = NSStoryboard(name: "Main", bundle: nil)
-            guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "popoverID")) as? PopoverViewController else { return }
-            popoverVC = vc
-        }
-        
-        popover.contentViewController = popoverVC
-        popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+        let window = NSWindow(contentViewController: vc)
+        window.makeKeyAndOrderFront(nil)
     }
 }
 

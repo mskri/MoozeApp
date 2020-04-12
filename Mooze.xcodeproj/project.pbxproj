@@ -10,7 +10,6 @@
 		82C010CC0A3D1E1333ECBFAA /* Pods_Mooze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE1564684851D64637A7282 /* Pods_Mooze.framework */; };
 		EB6332BA2440B19D007AA853 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6332B92440B19D007AA853 /* AudioHelper.swift */; };
 		EBD65C8424408A4400068113 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65C8324408A4400068113 /* AppDelegate.swift */; };
-		EBD65C8624408A4400068113 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65C8524408A4400068113 /* PopoverViewController.swift */; };
 		EBD65C8824408A4700068113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBD65C8724408A4700068113 /* Assets.xcassets */; };
 		EBD65C8B24408A4700068113 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBD65C8924408A4700068113 /* Main.storyboard */; };
 		EBD65C9424408F3300068113 /* StatusBarItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65C9324408F3300068113 /* StatusBarItemManager.swift */; };
@@ -23,7 +22,6 @@
 		EB6332B92440B19D007AA853 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
 		EBD65C8024408A4400068113 /* Mooze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mooze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBD65C8324408A4400068113 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EBD65C8524408A4400068113 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		EBD65C8724408A4700068113 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBD65C8A24408A4700068113 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EBD65C8C24408A4700068113 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				EBD65C8324408A4400068113 /* AppDelegate.swift */,
-				EBD65C8524408A4400068113 /* PopoverViewController.swift */,
 				EBD65C8724408A4700068113 /* Assets.xcassets */,
 				EBD65C8924408A4700068113 /* Main.storyboard */,
 				EBD65C8C24408A4700068113 /* Info.plist */,
@@ -210,7 +207,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBD65C8624408A4400068113 /* PopoverViewController.swift in Sources */,
 				EBD65C8424408A4400068113 /* AppDelegate.swift in Sources */,
 				EBF2C52624411DA3004A9765 /* State.swift in Sources */,
 				EB6332BA2440B19D007AA853 /* AudioHelper.swift in Sources */,

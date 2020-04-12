@@ -2,57 +2,63 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6"/>
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                        <items>
+                            <menuItem title="Mooze" id="6dU-Uu-ahl">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Mooze" systemMenu="apple" id="oZp-T5-v0C">
+                                    <items>
+                                        <menuItem title="About Mooze" id="uCw-fG-2VT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="flH-F5-MEX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="MYN-sN-CMW"/>
+                                        <menuItem title="Mute microphone" keyEquivalent="m" id="LUb-2t-Xom">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="toggleMenuBarItemAction:" target="ynm-gq-wk4" id="Lsg-3Y-sJi"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="eXG-To-FUn"/>
+                                        <menuItem isSeparatorItem="YES" id="Jcp-Dm-Arz"/>
+                                        <menuItem title="Quit Mooze" keyEquivalent="q" id="i9f-eV-gMF">
+                                            <connections>
+                                                <action selector="terminate:" target="Ady-hI-5gd" id="2mc-AH-i5b"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Mooze" customModuleProvider="target">
                     <connections>
+                        <outlet property="menu" destination="oZp-T5-v0C" id="876-9c-Sg5"/>
                         <outlet property="statusItemManager" destination="ynm-gq-wk4" id="du8-zF-pGP"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="ynm-gq-wk4" customClass="StatusBarItemManager" customModule="Mooze" customModuleProvider="target"/>
+                <customObject id="ynm-gq-wk4" customClass="StatusBarItemManager" customModule="Mooze" customModuleProvider="target">
+                    <connections>
+                        <outlet property="menu" destination="oZp-T5-v0C" id="9Ul-TD-WDL"/>
+                        <outlet property="toggleMuteMenuItem" destination="LUb-2t-Xom" id="vZj-sD-eem"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
-        </scene>
-        <!--Popover View Controller-->
-        <scene sceneID="BZl-yY-fgp">
-            <objects>
-                <viewController storyboardIdentifier="popoverID" id="0Aw-cF-srx" customClass="PopoverViewController" customModule="Mooze" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="Guv-QY-lA4">
-                        <rect key="frame" x="0.0" y="0.0" width="237" height="61"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddO-pE-5EJ">
-                                <rect key="frame" x="70" y="13" width="96" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Mute mic" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z0y-o8-Bft">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="toggleMute:" target="0Aw-cF-srx" id="8Px-rj-pPg"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="toggleMuteButton" destination="ddO-pE-5EJ" id="VNw-Zc-CMR"/>
-                    </connections>
-                </viewController>
-                <customObject id="Fhm-oH-fb9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="50.5" y="194.5"/>
         </scene>
     </scenes>
 </document>
