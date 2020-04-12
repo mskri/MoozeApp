@@ -3,7 +3,7 @@ import AMCoreAudio
 public class AudioHelper {
     static func isEveryInputDeviceMuted() -> Bool {
         var devicesMuteStatuses: [Bool] = []
-        
+
         for device in AudioDevice.allInputDevices() {
             let isMuted = device.isMuted(channel: UInt32(0), direction: .recording) ?? false
             devicesMuteStatuses.append(isMuted)
@@ -11,7 +11,7 @@ public class AudioHelper {
 
         return !devicesMuteStatuses.contains(false)
     }
-    
+
     static func muteMicrophones() {
         for device in AudioDevice.allInputDevices() {
             if device.setMute(true, channel: UInt32(0), direction: .recording) == false {

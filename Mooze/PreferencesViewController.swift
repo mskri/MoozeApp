@@ -1,7 +1,7 @@
 import Cocoa
 
 class PreferencesViewController: NSViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -13,7 +13,7 @@ class PreferencesViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-    
+
     override func viewWillAppear() {
         view.window?.styleMask.remove(.resizable)
         view.window?.styleMask.remove(.miniaturizable)
