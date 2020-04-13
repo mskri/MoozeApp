@@ -64,9 +64,26 @@
             <objects>
                 <viewController storyboardIdentifier="preferencesID" id="1qO-Ro-aZ5" customClass="PreferencesViewController" customModule="Mooze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="p5y-Wz-3dF">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="130"/>
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="130"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1q-BA-sjL">
+                                <rect key="frame" x="18" y="94" width="340" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Toggle microphone mute on status bar icon left click" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="sAJ-Ht-6Vj">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleMuteMicrophoneOnLeftClick:" target="1qO-Ro-aZ5" id="Oi3-RI-UhP"/>
+                                </connections>
+                            </button>
+                        </subviews>
                     </view>
+                    <connections>
+                        <outlet property="toggleButtonOnLeftCheckBox" destination="D1q-BA-sjL" id="yN7-wJ-1bF"/>
+                        <outlet property="toggleMuteMicroPhoneOnLeftClickCheckBox" destination="sAJ-Ht-6Vj" id="XJx-IU-rbU"/>
+                    </connections>
                 </viewController>
                 <customObject id="u6n-lF-NiU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

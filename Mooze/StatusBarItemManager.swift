@@ -129,11 +129,9 @@ class StatusBarItemManager: NSObject {
         State.shared.toggleMicrophoneMute()
     }
 
-    // TODO: make this functionality option. Give user choice to either open menu also on left click or toggle mute
-    // with menu on right click
-    let toggleMuteOnLeftClick = true
     @objc func statusBarIconClicked(sender: NSStatusItem) {
         let event = NSApp.currentEvent!
+        let toggleMuteOnLeftClick = UserDefaults.standard.bool(forKey: "ToggleMuteMicrophoneOnStatusBarIconLeftClick")
 
         if event.type == NSEvent.EventType.rightMouseUp {
             if toggleMuteOnLeftClick {
