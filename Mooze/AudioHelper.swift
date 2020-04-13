@@ -12,19 +12,27 @@ public class AudioHelper {
         return !devicesMuteStatuses.contains(false)
     }
 
+    static func isDefaultInputDeviceMuted() -> Bool {
+        let device = AudioDevice.defaultInputDevice()
+        let isMuted = device?.isMuted(channel: UInt32(0), direction: .recording) ?? false
+        return isMuted
+    }
+
     static func muteMicrophones() {
-        for device in AudioDevice.allInputDevices() {
-            if device.setMute(true, channel: UInt32(0), direction: .recording) == false {
-                print("ERROR: Unable to mute \(device.id)")
-            }
+        let channel = UInt32(0)
+        let defaultDevice = AudioDevice.defaultInputDevice()
+
+        if defaultDevice?.setMute(true, channel: channel, direction: .recording) == false {
+            print("ERROR: Unable to set mute default input device")
         }
     }
 
     static func unmuteMicrophones() {
-        for device in AudioDevice.allInputDevices() {
-            if device.setMute(false, channel: UInt32(0), direction: .recording) == false {
-                print("ERROR: Unable to unmute \(device.id)")
-            }
+        let channel = UInt32(0)
+        let defaultDevice = AudioDevice.defaultInputDevice()
+
+        if defaultDevice?.setMute(false, channel: channel, direction: .recording) == false {
+            print("ERROR: Unable to set mute default input device")
         }
     }
 }

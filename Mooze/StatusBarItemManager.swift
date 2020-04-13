@@ -30,9 +30,10 @@ class StatusBarItemManager: NSObject {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        let isEveryInputDeviceMuted = AudioHelper.isEveryInputDeviceMuted()
-        print("On app startup all input devices are muted: \(isEveryInputDeviceMuted)")
-        State.shared.isMicrophoneMuted = isEveryInputDeviceMuted
+        let isDefaultInputDeviceMuted = AudioHelper.isDefaultInputDeviceMuted()
+
+        print("On app startup default input device is muted: \(isDefaultInputDeviceMuted)")
+        State.shared.isMicrophoneMuted = isDefaultInputDeviceMuted
 
         microphoneMutedStatusObserver = State.shared.observe(\.isMicrophoneMuted, options: .new) { _, change in
             let isMuted = change.newValue ?? false
@@ -41,7 +42,7 @@ class StatusBarItemManager: NSObject {
         }
 
         initNotificationCenterListeners()
-        initStatusBarButton(isEveryInputDeviceMuted)
+        initStatusBarButton(isDefaultInputDeviceMuted)
         initGlobalHotKeys()
     }
 
@@ -163,7 +164,7 @@ class StatusBarItemManager: NSObject {
 // TODO: when new device is added it should be muted automatically if mute is enabled
 extension StatusBarItemManager: EventSubscriber {
     func eventReceiver(_ event: Event) {
-//        print(event)
+        print(event)
 
         switch event {
         case let event as AudioDeviceEvent:
@@ -174,8 +175,7 @@ extension StatusBarItemManager: EventSubscriber {
                 if direction == .playback {
                     return
                 }
-                // TODO: should unmute the devices? If user changes input volume in preferences this is triggered
-                // muteDidChange == input volume was set to 0
+
                 let volume = audioDevice.volume(channel: channel, direction: .recording) ?? 1
 
                 if volume > 0 && State.shared.isMicrophoneMuted {
@@ -185,22 +185,21 @@ extension StatusBarItemManager: EventSubscriber {
                     // Updates icon and sets app state correctly when user sets input volume to 0 in system preferences
                     State.shared.isMicrophoneMuted = true
                 }
-//            case .muteDidChange(let audioDevice, let channel, let direction):
-//                if direction == .playback {
-//                    return
-//                }
+            case .muteDidChange(let audioDevice, let channel, let direction):
+                if direction == .playback {
+                    return
+                }
+                print("\(audioDevice.id) mute did change")
             default:
                 break
             }
         case let event as AudioHardwareEvent:
             switch event {
             case .deviceListChanged:
-                print("deviceListChanged")
-                // Mute all devices when new one is added and the mute status is true
-                if !State.shared.isMicrophoneMuted {
-                    print("mute all inputs because of new device")
-                    State.shared.isMicrophoneMuted = true
-                }
+                print("Device list changed")
+            case let .defaultInputDeviceChanged(audioDevice):
+                print("Default input device changed to \(audioDevice)")
+                audioDevice.setMute(State.shared.isMicrophoneMuted, channel: UInt32(0), direction: .recording)
             default:
                 break
             }
