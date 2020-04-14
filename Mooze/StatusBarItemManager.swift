@@ -15,14 +15,15 @@ class StatusBarItemManager: NSObject {
     }
 
     @IBAction func showPreferences(_ sender: Any) {
-           let storyboard = NSStoryboard(name: "Main", bundle: nil)
-           guard let preferencesViewController =
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        guard let preferencesViewController =
             storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as?
             PreferencesViewController else { return }
 
-           let window = NSWindow(contentViewController: preferencesViewController)
-           window.makeKeyAndOrderFront(nil)
-       }
+        let window = NSWindow(contentViewController: preferencesViewController)
+        window.makeKeyAndOrderFront(nil)
+        window.orderFrontRegardless()
+    }
 
     let statusBarButton: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     var microphoneMutedStatusObserver: NSKeyValueObservation?
