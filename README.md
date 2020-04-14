@@ -8,13 +8,13 @@ Status bar macOS app for toggling mute on your microphone with a global shortcut
 
 Created this small utility app to help myself mute microphone when in a meetings. Got annoyed by having to find the tab on a browser which has the conference call to mute or unmute my microphone. If focus was not on the correct tab browser bookmarked the wrong tab (toggle mute in Google Meet and bookmark current page share shame shortcut).
 
-Tested on macOS Catalina 10.15.3
+Tested on macOS Catalina 10.15.3 and 10.14.6.
 
 ## Usage
 
 Toggle microphone on/off with global shortcut using `⌃⌥⌘m` _(control + option + command + m)_.
 
-Microphone can also be toggled by left clicking status bar icon. Menu opens on right click.
+Microphone can also be toggled by right clicking status bar icon. Menu opens on left click. These can be switched from preferences.
 
 ## License
 
